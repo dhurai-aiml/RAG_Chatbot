@@ -109,16 +109,6 @@ if question:
             st.chat_message("assistant").markdown(answer)
             st.session_state.messages.append({"role": "assistant", "content": answer})
 
-            # Show sources only for RAG answers (not greetings)
-            if data.get("sources"):
-                with st.expander("📎 Sources"):
-                    seen = set()
-                    for s in data["sources"]:
-                        key = (s["source"], s["page"])
-                        if key not in seen:
-                            st.write(f"- **{s['source']}** — page {s['page'] + 1}")
-                            seen.add(key)
-
         except requests.exceptions.RequestException as e:
             err = f"❗ Request failed: {e}"
             st.chat_message("assistant").markdown(err)
